@@ -973,15 +973,6 @@ const overlay = document.getElementById("languageOverlay");
 const langToggle = document.getElementById("langToggle");
 
 // ------------------------------
-// BASE PATH (GitHub Pages safe)
-// ------------------------------
-function getBasePath() {
-  return window.location.pathname.includes("/mixrummet-2/")
-    ? "/mixrummet-2/"
-    : "/";
-}
-
-// ------------------------------
 // MENU
 // ------------------------------
 hamburger.addEventListener("click", () => {
@@ -1031,15 +1022,21 @@ window.addEventListener("scroll", () => {
 });
 
 // ------------------------------
-// LANGUAGE LOADER
+// LANGUAGE STATE
+// ------------------------------
+let currentLang = "sv";
+
+// ------------------------------
+// LOAD LANGUAGE
 // ------------------------------
 async function loadLanguage(lang) {
   try {
-    const res = await fetch(`${getBasePath()}lang/${lang}.json`);
-    if (!res.ok) throw new Error("Failed to load language");
+    const res = await fetch(`lang/${lang}.json`);
+    if (!res.ok) throw new Error("Language file missing");
 
     const t = await res.json();
 
+    currentLang = lang;
     document.documentElement.lang = lang;
 
     document.getElementById("title").textContent = t.heroTitle;
@@ -1048,11 +1045,28 @@ async function loadLanguage(lang) {
     document.querySelector("#contact .section-title").textContent = t.contactTitle;
     document.querySelector(".contact-wrapper p").textContent = t.contactText;
 
-    updateToggleUI(lang);
+    updateToggle();
 
   } catch (err) {
     console.error("Language load failed:", err);
   }
+}
+
+// ------------------------------
+// SINGLE TOGGLE BUTTON UI
+// ------------------------------
+function updateToggle() {
+  if (!langToggle) return;
+
+  langToggle.textContent = currentLang === "sv" ? "🇸🇪" : "🇬🇧";
+}
+
+// ------------------------------
+// TOGGLE LANGUAGE
+// ------------------------------
+function toggleLanguage() {
+  const newLang = currentLang === "sv" ? "en" : "sv";
+  setLanguage(newLang);
 }
 
 // ------------------------------
@@ -1066,29 +1080,13 @@ async function setLanguage(lang) {
   overlay.classList.add("hidden");
 }
 
-// expose for HTML onclick safety (optional)
 window.setLanguage = setLanguage;
 
 // ------------------------------
-// UPDATE TOGGLE UI
-// ------------------------------
-function updateToggleUI(lang) {
-  if (!langToggle) return;
-
-  langToggle.querySelectorAll("span").forEach(el => {
-    el.classList.toggle("active", el.dataset.lang === lang);
-  });
-}
-
-// ------------------------------
-// TOGGLE CLICK HANDLER
+// TOGGLE CLICK
 // ------------------------------
 if (langToggle) {
-  langToggle.addEventListener("click", (e) => {
-    const lang = e.target.dataset.lang;
-    if (!lang) return;
-    setLanguage(lang);
-  });
+  langToggle.addEventListener("click", toggleLanguage);
 }
 
 // ------------------------------
@@ -1105,7 +1103,8 @@ window.addEventListener("load", async () => {
 
   const lang = savedLang || browserLang;
 
-  // show overlay ONLY first time
+  currentLang = lang;
+
   if (!savedLang) {
     overlay.classList.remove("hidden");
   } else {
@@ -1113,7 +1112,6 @@ window.addEventListener("load", async () => {
   }
 
   await loadLanguage(lang);
-
 });
 </script>
 
