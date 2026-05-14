@@ -14,7 +14,7 @@
 
   <meta name="author" content="Mixrummet">
 
-  <link rel="canonical" href="https://mixrummet.se">
+  <link rel="canonical" href="https://mixrummet.com">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Mixrummet">
@@ -25,10 +25,10 @@
   <meta property="og:type" content="website">
 
   <meta property="og:url"
-    content="https://mixrummet.se">
+    content="https://mixrummet.com">
 
   <meta property="og:image"
-    content="https://mixrummet.se/icons/icon-180.png">
+    content="https://mixrummet.com/icons/icon-180.png">
 
   <!-- Twitter -->
   <meta name="twitter:card"
@@ -41,7 +41,7 @@
     content="Modern inspelningsstudio i Uppsala.">
 
   <meta name="twitter:image"
-    content="https://mixrummet.se/icons/icon-180.png">
+    content="https://mixrummet.com/icons/icon-180.png">
 
   <!-- Fonts -->
   <link rel="preconnect"
@@ -53,6 +53,9 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Quicksand:wght@300..700&display=swap"
     rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap');
@@ -236,6 +239,7 @@
       line-height:1.1;
       letter-spacing:1px;
       max-width:900px;
+      color: white;
     }
 
     .hero-sub{
@@ -281,12 +285,21 @@
       filter:invert(1);
     }
 
-    .section{
-      padding:140px 10%;
-      position:relative;
-      border-top:1px solid rgba(0, 0, 0, 0.2)
-    }
+.section{
+  padding:100px 10%;
+  position:relative;
+  border-top:1px solid rgba(0, 0, 0, 0.2);
+}
 
+    .section#about{
+      display:flex;
+      align-items:center;
+      position:relative;
+    }
+.section#contact{
+  background:#ffffff;
+  color:#111111;
+}
     .section::before{
       content:"";
       position:absolute;
@@ -312,15 +325,11 @@
       color: white;
     }
 
-    .about-wrapper{
-      max-width:900px;
-      margin:auto;
-      text-align:center;
-      font-size:1.1rem;
-      line-height:1.9;
-      opacity:0.9;
-      color: white;
-    }
+#contact .section-title,
+#contact p,
+#contact a{
+  color:#111111;
+}
 
     .demo-contact{
       text-align:center;
@@ -444,17 +453,278 @@
 
     }
 
-/* se till att innehållet ligger ovanpå overlay */
-#about > *{
-  position: relative;
-  z-index: 1;
-    filter: brightness(0.9) contrast(1.05);
+    .contact-wrapper{
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+#contact > *{
+  position:relative;
+  z-index:1;
+  filter:none;
 }
 
+.about-section {
+  display: flex;
+  width: 100%;
+  height: 80vh;        /* key part */
+  overflow: hidden;
+}
+
+.about-image {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  filter: brightness(0.65) contrast(1.05) saturate(0.9);
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  text-align: left;
+}
+
+@media (max-width: 900px){
+  .about-section{
+    flex-direction:column;
+  }
+
+  .about-image{
+    height:300px;
+  }
+
+  .about-text{
+    padding:40px 20px;
+    text-align:center;
+  }
+}
+
+.spotlight {
+  overflow: hidden;
+}
+
+.spotlight .content h2 {
+      font-family:'Anton', sans-serif;
+      font-size:clamp(2.5rem, 7vw, 5rem);
+      margin-bottom:24px;
+      font-weight:400;
+      line-height:1.1;
+      letter-spacing:1px;
+      max-width:900px;
+      color: white;
+}
+
+
+#first .image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    filter:brightness(0.9) contrast(1.05);
+
+    transform:scale(1.02);
+}
+
+/* Language Selector */
+.language-overlay{
+  position:fixed;
+  inset:0;
+
+  background:#000;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:99999;
+
+  transition:
+    opacity 0.7s ease,
+    visibility 0.7s ease;
+}
+
+.language-overlay.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.language-inner{
+  width:100%;
+  max-width:900px;
+
+  padding:40px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+}
+
+.language-logo{
+  width:140px;
+  margin-bottom:40px;
+
+  filter:
+    brightness(1)
+    invert(1);
+}
+
+.language-title{
+      font-family:'Anton', sans-serif;
+      font-size:clamp(2.5rem, 7vw, 5rem);
+      margin-bottom:45px;
+      font-weight:400;
+      line-height:1.1;
+      letter-spacing:1px;
+      max-width:900px;
+      color: white;
+}
+
+.language-grid{
+  display:flex;
+  gap:40px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.language-card{
+  background:none;
+  border:none;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  cursor:pointer;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.language-card:hover{
+  transform:translateY(-8px);
+}
+
+.language-card img{
+  width:180px;
+  height:120px;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  border:
+    1px solid rgba(255,255,255,0.12);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.4);
+}
+
+.language-card span{
+  margin-top:18px;
+
+  color:white;
+
+  font-size:1.05rem;
+  font-weight:500;
+}
+
+.fade-transition{
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.fade-out{
+  opacity:0;
+  transform:translateY(10px);
+}
+
+.fade-in{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+  .language-card img{
+    width:140px;
+    height:92px;
+  }
+
+  .language-title{
+    margin-bottom:40px;
+  }
+
+  .language-grid{
+    gap:24px;
+  }
+
+}
   </style>
 </head>
 
 <body>
+
+<div class="language-overlay" id="languageOverlay">
+
+  <div class="language-inner">
+
+    <img
+      src="/assets/images/logo.webp"
+      alt="Mixrummet"
+      class="language-logo">
+
+    <h1 class="language-title">
+      Choose Your Language
+    </h1>
+
+    <div class="language-grid">
+
+      <button class="language-card"
+        onclick="setLanguage('sv')">
+
+        <img
+          src="https://flagcdn.com/w320/se.png"
+          alt="Swedish Flag">
+
+        <span>Svenska</span>
+
+      </button>
+
+      <button class="language-card"
+        onclick="setLanguage('en')">
+
+        <img
+          src="https://flagcdn.com/w320/gb.png"
+          alt="English Flag">
+
+        <span>English</span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 <header>
 
@@ -488,7 +758,7 @@
 <section class="hero" id="hero">
 
   <video class="hero-video" autoplay muted loop playsinline>
-    <source src="videos/hero.mp4" type="video/mp4">
+    <source src="assets/videos/hero.mp4" type="video/mp4">
   </video>
 
   <div>
@@ -540,26 +810,19 @@
 
 </section>
 
-<section class="section" id="about">
-
-  <h2 class="section-title reveal">
-    Om Studion
-  </h2>
-
-  <div class="about-wrapper reveal">
-
-    Mixrummet är en modern inspelningsstudio i Uppsala
-    med fokus på musikproduktion, inspelning,
-    mixning och kreativt skapande.
-
-    <br><br>
-
-    Studion är byggd för både nya och etablerade artister
-    som vill skapa musik i en professionell och inspirerande miljö.
-
-  </div>
-
-</section>
+					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
+						<div class="content">
+							<h2>Om Studion</h2>
+              <p>Mixrummets målsättning är att erbjuda ett “kreativt vardagsrum”, där du kan känna dig som hemma, vara dig själv och fokusera på det du brinner för – musiken. Vi jobbar aktivt för att hålla högsta möjliga kvalitet i varje led till ett pris som passar alla. Därför jobbar vi agilt och flexibelt och ofta i samarbete med externa parter. Allt för att kunna erbjuda den bästa lösningen för varje individuellt projekt.</p>
+              <p>För att kvalitetssäkra vårt tjänsteutbud använder vi oss av noga utvald utrustning och kompetens. Inspelning, produktion och mixning görs in-house, medan mastering och video hanteras av externa specialister. Vi har också löpande samarbeten med sessionmusiker.</p>
+				<!--			<ul class="actions stacked">
+					<li><a href="#" class="button">Learn More</a></li>
+							</ul> -->	
+						</div>
+						<div class="image">
+							<img src="/assets/images/studio1.jpg" alt="" />
+						</div>
+					</section>
 
 <section class="section" id="contact">
 
@@ -567,16 +830,16 @@
     Kontakt
   </h2>
 
-  <div class="about-wrapper reveal demo-contact">
+<div class="contact-wrapper reveal">
 
     <p>
       För bokningar och frågor kontakta:
     </p>
 
-    <a href="mailto:kontakt@mixrummet.se"
+    <a href="mailto:kontakt@mixrummet.com"
       class="demo-email">
 
-      kontakt@mixrummet.se
+      kontakt@mixrummet.com
 
     </a>
 
@@ -706,6 +969,105 @@ window.addEventListener("scroll", () => {
 
 });
 
+// Language Selector Logic
+async function loadLanguage(lang){
+
+  const response =
+    await fetch(`/lang/${lang}.json`);
+
+  const t =
+    await response.json();
+
+  const animated =
+    document.querySelectorAll(
+      "#title, .hero-sub, #first h2, #contact .section-title, .contact-wrapper p"
+    );
+
+  animated.forEach(el => {
+    el.classList.add("fade-out");
+  });
+
+  setTimeout(() => {
+
+    document.documentElement.lang = lang;
+
+    document.getElementById("title").textContent =
+      t.heroTitle;
+
+    document.querySelector(".hero-sub").textContent =
+      t.heroSub;
+
+    document.querySelector("#first h2").textContent =
+      t.aboutTitle;
+
+    document.querySelector("#contact .section-title").textContent =
+      t.contactTitle;
+
+    document.querySelector(".contact-wrapper p").textContent =
+      t.contactText;
+
+    animated.forEach(el => {
+
+      el.classList.remove("fade-out");
+
+      el.classList.add("fade-transition");
+      el.classList.add("fade-in");
+
+    });
+
+  }, 250);
+
+}
+
+async function setLanguage(lang){
+
+  localStorage.setItem("language", lang);
+
+  await loadLanguage(lang);
+
+  document.getElementById("languageOverlay")
+    .classList.add("hidden");
+
+  if(history.pushState){
+
+    history.pushState(
+      {},
+      "",
+      `/${lang}/`
+    );
+
+  }
+
+}
+
+window.addEventListener("load", async () => {
+
+  let lang =
+    localStorage.getItem("language");
+
+  if(!lang){
+
+    const browserLang =
+      navigator.language.toLowerCase();
+
+    lang =
+      browserLang.startsWith("sv")
+        ? "sv"
+        : "en";
+
+  }
+
+  await loadLanguage(lang);
+
+  if(window.location.pathname === "/"){
+    document.getElementById("languageOverlay")
+      .classList.remove("hidden");
+  } else {
+    document.getElementById("languageOverlay")
+      .classList.add("hidden");
+  }
+
+});
 </script>
 
 </body>
