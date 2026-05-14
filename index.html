@@ -920,10 +920,16 @@
 </footer>
 
 <script>
-
+// ------------------------------
+// ELEMENTS
+// ------------------------------
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
+const overlay = document.getElementById("languageOverlay");
 
+// ------------------------------
+// MENU
+// ------------------------------
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   menu.classList.toggle("active");
@@ -938,54 +944,59 @@ document.querySelectorAll(".menu a").forEach(link => {
   });
 });
 
+// ------------------------------
+// FOOTER YEAR
+// ------------------------------
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
+// ------------------------------
+// REVEAL ANIMATION
+// ------------------------------
 const revealElements =
   document.querySelectorAll(".reveal");
 
 const revealObserver =
   new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         entry.target.classList.add("active");
         revealObserver.unobserve(entry.target);
       }
     });
-  }, {
-    threshold:0.15
-  });
+  }, { threshold: 0.15 });
 
 revealElements.forEach(el =>
-  revealObserver.observe(el));
+  revealObserver.observe(el)
+);
 
+// ------------------------------
+// HEADER SCROLL EFFECT
+// ------------------------------
 window.addEventListener("scroll", () => {
-  if(window.scrollY > 120){
-    document.querySelector("header").classList.add("scrolled");
-  } else {
-    document.querySelector("header").classList.remove("scrolled");
-  }
+  document.querySelector("header")
+    .classList.toggle("scrolled", window.scrollY > 120);
 });
 
-
 // ------------------------------
-// LANGUAGE SYSTEM (FIXED)
+// BASE PATH (GitHub Pages safe)
 // ------------------------------
-
 function getBasePath() {
-  return window.location.pathname.includes('/mixrummet-2/')
-    ? '/mixrummet-2/'
-    : '/';
+  return window.location.pathname.includes("/mixrummet-2/")
+    ? "/mixrummet-2/"
+    : "/";
 }
 
+// ------------------------------
+// LANGUAGE LOADER
+// ------------------------------
 async function loadLanguage(lang) {
   try {
-
     const response =
       await fetch(`${getBasePath()}lang/${lang}.json`);
 
-    if(!response.ok){
-      throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
     }
 
     const t = await response.json();
@@ -995,33 +1006,21 @@ async function loadLanguage(lang) {
         "#title, .hero-sub, #first h2, #contact .section-title, .contact-wrapper p"
       );
 
-    animated.forEach(el => {
-      el.classList.add("fade-out");
-    });
+    animated.forEach(el => el.classList.add("fade-out"));
 
     setTimeout(() => {
 
       document.documentElement.lang = lang;
 
-      document.getElementById("title").textContent =
-        t.heroTitle;
-
-      document.querySelector(".hero-sub").textContent =
-        t.heroSub;
-
-      document.querySelector("#first h2").textContent =
-        t.aboutTitle;
-
-      document.querySelector("#contact .section-title").textContent =
-        t.contactTitle;
-
-      document.querySelector(".contact-wrapper p").textContent =
-        t.contactText;
+      document.getElementById("title").textContent = t.heroTitle;
+      document.querySelector(".hero-sub").textContent = t.heroSub;
+      document.querySelector("#first h2").textContent = t.aboutTitle;
+      document.querySelector("#contact .section-title").textContent = t.contactTitle;
+      document.querySelector(".contact-wrapper p").textContent = t.contactText;
 
       animated.forEach(el => {
         el.classList.remove("fade-out");
-        el.classList.add("fade-transition");
-        el.classList.add("fade-in");
+        el.classList.add("fade-transition", "fade-in");
       });
 
     }, 250);
@@ -1031,54 +1030,48 @@ async function loadLanguage(lang) {
   }
 }
 
+// ------------------------------
+// SET LANGUAGE
+// ------------------------------
 async function setLanguage(lang) {
-
   localStorage.setItem("language", lang);
 
   await loadLanguage(lang);
 
-  document.getElementById("languageOverlay")
-    .classList.add("hidden");
+  overlay.classList.add("hidden");
 
-  // GitHub Pages SAFE routing (no real folders)
+  // GitHub Pages safe routing (no real folders)
   history.pushState({}, "", `#${lang}`);
 }
 
-// Make onclick work globally (IMPORTANT FIX)
+// IMPORTANT: make onclick work in HTML
 window.setLanguage = setLanguage;
 
+// ------------------------------
+// INIT
+// ------------------------------
 window.addEventListener("load", async () => {
 
-  let lang =
+  const savedLang =
     localStorage.getItem("language");
 
-  if(!lang){
-    const browserLang =
-      navigator.language.toLowerCase();
+  const browserLang =
+    navigator.language.toLowerCase();
 
-    lang =
-      browserLang.startsWith("sv")
-        ? "sv"
-        : "en";
-  }
+  const defaultLang =
+    browserLang.startsWith("sv") ? "sv" : "en";
 
-  await loadLanguage(lang);
-
-  const overlay = document.getElementById("languageOverlay");
-
-  // GitHub Pages safe path check
-  const isRoot =
-    window.location.pathname === "/" ||
-    window.location.pathname.includes("mixrummet-2");
-
-  if(isRoot && !localStorage.getItem("language")){
+  // show overlay only first time
+  if (!savedLang) {
     overlay.classList.remove("hidden");
   } else {
     overlay.classList.add("hidden");
   }
 
-});
+  // load language safely
+  await loadLanguage(savedLang || defaultLang);
 
+});
 </script>
 
 </body>
