@@ -698,7 +698,25 @@
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
-	  
+	  .lang-switch{
+  position:absolute;
+  left:30px;
+  top:50%;
+  transform:translateY(-50%);
+
+  font-size:20px;
+  cursor:pointer;
+
+  color:white;
+  opacity:0.8;
+
+  transition:0.2s ease;
+}
+
+.lang-switch:hover{
+  opacity:1;
+  transform:translateY(-50%) scale(1.1);
+}
   </style>
 </head>
 
@@ -748,7 +766,9 @@
 </div>
 
 <header>
-
+<div class="lang-switch" id="langSwitch">
+  🌍
+</div>
   <div class="logo">
 
     <img
@@ -1071,6 +1091,11 @@ window.addEventListener("load", async () => {
   // load language safely
   await loadLanguage(savedLang || defaultLang);
 
+});
+
+	document.getElementById("langSwitch").addEventListener("click", () => {
+  document.getElementById("languageOverlay")
+    .classList.remove("hidden");
 });
 </script>
 
