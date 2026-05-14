@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Mixrummet | Inspelningsstudio i Uppsala</title>
+
+  <meta name="description"
+    content="Mixrummet är en modern inspelningsstudio i Uppsala för musikproduktion, inspelning och mixning.">
+
+  <meta name="keywords"
+    content="Mixrummet, inspelningsstudio Uppsala, musikstudio Uppsala">
+
+  <meta name="author" content="Mixrummet">
+
+  <link rel="canonical" href="https://mixrummet.se">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mixrummet">
+
+  <meta property="og:description"
+    content="Modern inspelningsstudio i Uppsala.">
+
+  <meta property="og:type" content="website">
+
+  <meta property="og:url"
+    content="https://mixrummet.se">
+
+  <meta property="og:image"
+    content="https://mixrummet.se/icons/icon-180.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card"
+    content="summary_large_image">
+
+  <meta name="twitter:title"
+    content="Mixrummet">
+
+  <meta name="twitter:description"
+    content="Modern inspelningsstudio i Uppsala.">
+
+  <meta name="twitter:image"
+    content="https://mixrummet.se/icons/icon-180.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Quicksand:wght@300..700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap');
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background: #000000;
+      color:white;
+      font-family:'Space Grotesk', sans-serif;
+      overflow-x:hidden;
+    }
+
+    body.menu-open{
+      overflow:hidden;
+    }
+
+    header{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      padding:24px 30px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+
+      transition:
+        background 0.3s ease,
+        padding 0.3s ease,
+        backdrop-filter 0.3s ease;
+    }
+
+    header.scrolled{
+      background:rgba(5,5,5,0.72);
+
+      backdrop-filter:blur(14px);
+
+      padding:14px 30px;
+
+      border-bottom:
+        1px solid rgba(255,255,255,0.06);
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .logo-img{
+      height:50px;
+      width:auto;
+      object-fit:contain;
+
+      filter:
+        brightness(1)
+        invert(1)
+        contrast(1.05);
+
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        height 0.3s ease;
+    }
+
+    header.scrolled .logo-img{
+      height:32px;
+    }
+
+    .logo-img:hover{
+      opacity:0.9;
+      transform:scale(1.02);
+    }
+
+    .hamburger{
+      position:absolute;
+      right:30px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:6px;
+      cursor:pointer;
+      z-index:1100;
+    }
+
+    .hamburger span{
+      width:28px;
+      height:2px;
+      background:white;
+      transition:0.3s ease;
+      transform-origin:center;
+    }
+
+    .hamburger.active span:nth-child(1){
+      transform:translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .hamburger.active span:nth-child(3){
+      transform:translateY(-8px) rotate(-45deg);
+    }
+
+    .menu{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100vh;
+      background:#050505;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap:30px;
+      transform:translateY(-100%);
+      transition:0.4s ease;
+      z-index:999;
+    }
+
+    .menu.active{
+      transform:translateY(0);
+    }
+
+    .menu a{
+      color:white;
+      text-decoration:none;
+      font-size:2rem;
+      font-family:'Anton', sans-serif;
+      letter-spacing:2px;
+    }
+
+    .hero{
+      position:relative;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      overflow:hidden;
+      padding:20px;
+    }
+
+    .hero-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-2;
+      filter:brightness(0.9) contrast(1.05);
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.3),
+          rgba(0,0,0,0.65)
+        );
+      z-index:-1;
+    }
+
+    #title{
+      font-family:'Anton', sans-serif;
+      font-size:clamp(2.5rem, 7vw, 5rem);
+      margin-bottom:24px;
+      font-weight:400;
+      line-height:1.1;
+      letter-spacing:1px;
+      max-width:900px;
+    }
+
+    .hero-sub{
+      max-width:700px;
+      margin:auto;
+      font-size:1.1rem;
+      line-height:1.8;
+      opacity:0.85;
+    }
+
+    .social-buttons{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:22px;
+      margin-top:40px;
+    }
+
+    .social-button{
+      width:56px;
+      height:56px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:50%;
+      transition:0.3s ease;
+      background:rgba(255,255,255,0.03);
+      backdrop-filter:blur(10px);
+    }
+
+    .social-button:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,255,255,0.35);
+      background:rgba(255,255,255,0.08);
+    }
+
+    .social-button img{
+      width:22px;
+      height:22px;
+      object-fit:contain;
+      filter:invert(1);
+    }
+
+    .section{
+      padding:140px 10%;
+      position:relative;
+      border-top:1px solid rgba(0, 0, 0, 0.2)
+    }
+
+    .section::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:1px;
+      background:linear-gradient(
+        to right,
+        transparent,
+        rgba(255,255,255,0.2),
+        transparent
+      );
+    }
+
+    .section-title{
+      font-family:'Anton', sans-serif;
+      font-size:clamp(2rem, 5vw, 4rem);
+      font-weight:400;
+      text-align:center;
+      margin-bottom:30px;
+      letter-spacing:1px;
+      color: white;
+    }
+
+    .about-wrapper{
+      max-width:900px;
+      margin:auto;
+      text-align:center;
+      font-size:1.1rem;
+      line-height:1.9;
+      opacity:0.9;
+      color: white;
+    }
+
+    .demo-contact{
+      text-align:center;
+    }
+
+    .demo-contact p{
+      margin-bottom:24px;
+      font-size:1.05rem;
+    }
+
+    .demo-email{
+      color:white;
+      text-decoration:none;
+      font-size:1.3rem;
+      border-bottom:1px solid rgba(255,255,255,0.35);
+      padding-bottom:4px;
+      transition:0.25s ease;
+    }
+
+    .demo-email:hover{
+      opacity:0.7;
+      border-color:white;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(50px);
+      transition:opacity 0.8s ease, transform 0.8s ease;
+      will-change:opacity, transform;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .footer{
+      padding:90px 10% 40px;
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#000000;
+      color: white;
+    } 
+
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:50px;
+    }
+
+    .footer-brand{
+      font-family:'Anton', sans-serif;
+      font-size:1.7rem;
+      letter-spacing:2px;
+    }
+
+    .footer-sub{
+      opacity:0.6;
+      margin-top:8px;
+      font-size:0.95rem;
+    }
+
+    .footer-links,
+    .footer-right{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .footer-links a,
+    .footer-right a{
+      color:white;
+      text-decoration:none;
+      opacity:0.7;
+      transition:0.2s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-right a:hover{
+      opacity:1;
+    }
+
+    .footer-bottom{
+      margin-top:60px;
+      text-align:center;
+      font-size:0.85rem;
+      opacity:0.5;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:22px;
+    }
+
+    @media(max-width:768px){
+
+      header{
+        padding:20px;
+      }
+
+      header.scrolled{
+        padding:12px 20px;
+      }
+
+      .logo-img{
+        height:28px;
+      }
+
+      header.scrolled .logo-img{
+        height:22px;
+      }
+
+      .footer-inner{
+        flex-direction:column;
+      }
+
+      .section{
+        padding:100px 8%;
+      }
+
+      .hero-sub{
+        font-size:1rem;
+      }
+
+    }
+
+/* se till att innehållet ligger ovanpå overlay */
+#about > *{
+  position: relative;
+  z-index: 1;
+    filter: brightness(0.9) contrast(1.05);
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+
+    <img
+      src="logo.webp"
+      alt="Mixrummet Logo"
+      class="logo-img">
+
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+</header>
+
+<div class="menu" id="menu">
+
+  <a href="#hero">Hem</a>
+  <a href="#about">Om Studion</a>
+  <a href="#contact">Kontakt</a>
+
+</div>
+
+<main>
+
+<section class="hero" id="hero">
+
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="videos/hero.mp4" type="video/mp4">
+  </video>
+
+  <div>
+
+    <h1 id="title" class="reveal">
+      Modern inspelningsstudio i Uppsala
+    </h1>
+
+    <p class="hero-sub reveal">
+      Musikproduktion, inspelning, mixning och kreativt skapande
+      i en modern och inspirerande studiomiljö.
+    </p>
+
+    <div class="social-buttons reveal">
+
+      <a href="#"
+        target="_blank"
+        class="social-button">
+
+        <img
+          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg"
+          alt="YouTube">
+
+      </a>
+
+      <a href="#"
+        target="_blank"
+        class="social-button">
+
+        <img
+          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg"
+          alt="TikTok">
+
+      </a>
+
+      <a href="#"
+        target="_blank"
+        class="social-button">
+
+        <img
+          src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+          alt="Instagram">
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="about">
+
+  <h2 class="section-title reveal">
+    Om Studion
+  </h2>
+
+  <div class="about-wrapper reveal">
+
+    Mixrummet är en modern inspelningsstudio i Uppsala
+    med fokus på musikproduktion, inspelning,
+    mixning och kreativt skapande.
+
+    <br><br>
+
+    Studion är byggd för både nya och etablerade artister
+    som vill skapa musik i en professionell och inspirerande miljö.
+
+  </div>
+
+</section>
+
+<section class="section" id="contact">
+
+  <h2 class="section-title reveal">
+    Kontakt
+  </h2>
+
+  <div class="about-wrapper reveal demo-contact">
+
+    <p>
+      För bokningar och frågor kontakta:
+    </p>
+
+    <a href="mailto:kontakt@mixrummet.se"
+      class="demo-email">
+
+      kontakt@mixrummet.se
+
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+  <div class="footer-inner">
+
+    <div>
+
+      <div class="footer-brand">
+        Mixrummet
+      </div>
+
+      <div class="footer-sub">
+        Inspelningsstudio i Uppsala
+      </div>
+
+    </div>
+
+    <div class="footer-links">
+
+      <a href="#hero">Hem</a>
+      <a href="#about">Om Studion</a>
+      <a href="#contact">Kontakt</a>
+
+    </div>
+
+    <div class="footer-right">
+
+      <a href="#">
+        Instagram
+      </a>
+
+      <a href="#">
+        TikTok
+      </a>
+
+      <a href="#">
+        YouTube
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © <span id="year"></span> Mixrummet.
+    Alla rättigheter förbehållna.
+  </div>
+
+</footer>
+
+<script>
+
+const hamburger = document.getElementById("hamburger");
+const menu = document.getElementById("menu");
+
+hamburger.addEventListener("click", () => {
+
+  hamburger.classList.toggle("active");
+  menu.classList.toggle("active");
+
+  document.body.classList.toggle("menu-open");
+
+});
+
+document.querySelectorAll(".menu a").forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    hamburger.classList.remove("active");
+    menu.classList.remove("active");
+
+    document.body.classList.remove("menu-open");
+
+  });
+
+});
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+const revealObserver =
+  new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+      if(entry.isIntersecting){
+
+        entry.target.classList.add("active");
+
+        revealObserver.unobserve(entry.target);
+
+      }
+
+    });
+
+}, {
+  threshold:0.15
+});
+
+revealElements.forEach(el =>
+  revealObserver.observe(el));
+
+window.addEventListener("scroll", () => {
+
+  if(window.scrollY > 120){
+
+    document.querySelector("header")
+      .classList.add("scrolled");
+
+  } else {
+
+    document.querySelector("header")
+      .classList.remove("scrolled");
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
