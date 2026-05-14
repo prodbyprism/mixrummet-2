@@ -78,6 +78,23 @@
       overflow:hidden;
     }
 
+	    .language-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .language-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  /* 🚀 CRITICAL: prevent flash before JS runs */
+  html.no-lang .language-overlay {
+    display: none !important;
+  }
+
     header{
       position:fixed;
       top:0;
@@ -717,17 +734,15 @@
   opacity:1;
   transform:translateY(-50%) scale(1.1);
 }
-	  .lang-toggle{
-  position:absolute;
-  left:30px;
-  top:50%;
-  transform:translateY(-50%);
-
-  display:flex;
-  gap:10px;
-
-  cursor:pointer;
-  user-select:none;
+	  .lang-toggle {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 22px;
+  perspective: 1000px;
 }
 
 .lang-toggle span{
@@ -739,6 +754,16 @@
 .lang-toggle span.active{
   opacity:1;
   transform:scale(1.15);
+}
+
+.flag-inner {
+  display: inline-block;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.flag-flip {
+  transform: rotateY(180deg);
 }
   </style>
 </head>
@@ -960,7 +985,7 @@
 
 </footer>
 
-	<script>
+<script>
 // ------------------------------
 // ELEMENTS
 // ------------------------------
@@ -968,6 +993,12 @@ const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
 const overlay = document.getElementById("languageOverlay");
 const langToggle = document.getElementById("langToggle");
+const flagInner = document.getElementById("flagInner");
+
+// ------------------------------
+// STATE
+// ------------------------------
+let currentLang = "sv";
 
 // ------------------------------
 // MENU
@@ -978,40 +1009,30 @@ hamburger.addEventListener("click", () => {
   document.body.classList.toggle("menu-open");
 });
 
-document.querySelectorAll(".menu a").forEach(link => {
-  link.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    menu.classList.remove("active");
-    document.body.classList.remove("menu-open");
-  });
-});
-
 // ------------------------------
-// FOOTER YEAR
+// YEAR
 // ------------------------------
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
 // ------------------------------
-// REVEAL ANIMATION
+// REVEAL
 // ------------------------------
 const revealElements = document.querySelectorAll(".reveal");
 
-const revealObserver = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("active");
-      revealObserver.unobserve(entry.target);
+      observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.15 });
 
-revealElements.forEach(el =>
-  revealObserver.observe(el)
-);
+revealElements.forEach(el => observer.observe(el));
 
 // ------------------------------
-// HEADER SCROLL
+// SCROLL HEADER
 // ------------------------------
 window.addEventListener("scroll", () => {
   document.querySelector("header")
@@ -1019,51 +1040,37 @@ window.addEventListener("scroll", () => {
 });
 
 // ------------------------------
-// LANGUAGE STATE
-// ------------------------------
-let currentLang = "sv";
-
-// ------------------------------
-// LOAD LANGUAGE
+// LANGUAGE LOADER
 // ------------------------------
 async function loadLanguage(lang) {
-  try {
-    const res = await fetch(`lang/${lang}.json`);
-    if (!res.ok) throw new Error("Language file missing");
+  const res = await fetch(`lang/${lang}.json`);
+  const t = await res.json();
 
-    const t = await res.json();
+  currentLang = lang;
+  document.documentElement.lang = lang;
 
-    currentLang = lang;
-    document.documentElement.lang = lang;
+  document.getElementById("title").textContent = t.heroTitle;
+  document.querySelector(".hero-sub").textContent = t.heroSub;
+  document.querySelector("#first h2").textContent = t.aboutTitle;
+  document.querySelector("#contact .section-title").textContent = t.contactTitle;
+  document.querySelector(".contact-wrapper p").textContent = t.contactText;
 
-    document.getElementById("title").textContent = t.heroTitle;
-    document.querySelector(".hero-sub").textContent = t.heroSub;
-    document.querySelector("#first h2").textContent = t.aboutTitle;
-    document.querySelector("#contact .section-title").textContent = t.contactTitle;
-    document.querySelector(".contact-wrapper p").textContent = t.contactText;
-
-    updateToggle();
-
-  } catch (err) {
-    console.error("Language load failed:", err);
-  }
+  updateToggle();
 }
 
 // ------------------------------
-// SINGLE TOGGLE BUTTON UI
+// TOGGLE UI (ANIMATED FLIP)
 // ------------------------------
 function updateToggle() {
-  if (!langToggle) return;
+  if (!flagInner) return;
 
-  langToggle.textContent = currentLang === "sv" ? "🇸🇪" : "🇬🇧";
-}
+  // flip animation
+  flagInner.classList.add("flag-flip");
 
-// ------------------------------
-// TOGGLE LANGUAGE
-// ------------------------------
-function toggleLanguage() {
-  const newLang = currentLang === "sv" ? "en" : "sv";
-  setLanguage(newLang);
+  setTimeout(() => {
+    flagInner.textContent = currentLang === "sv" ? "🇸🇪" : "🇬🇧";
+    flagInner.classList.remove("flag-flip");
+  }, 300);
 }
 
 // ------------------------------
@@ -1077,17 +1084,18 @@ async function setLanguage(lang) {
   overlay.classList.add("hidden");
 }
 
-window.setLanguage = setLanguage;
-
 // ------------------------------
-// TOGGLE CLICK
+// TOGGLE
 // ------------------------------
-if (langToggle) {
-  langToggle.addEventListener("click", toggleLanguage);
+function toggleLanguage() {
+  const newLang = currentLang === "sv" ? "en" : "sv";
+  setLanguage(newLang);
 }
 
+langToggle.addEventListener("click", toggleLanguage);
+
 // ------------------------------
-// INIT
+// INIT (NO FLICKER VERSION)
 // ------------------------------
 window.addEventListener("load", async () => {
 
@@ -1102,6 +1110,7 @@ window.addEventListener("load", async () => {
 
   currentLang = lang;
 
+  // ONLY show overlay if first time
   if (!savedLang) {
     overlay.classList.remove("hidden");
   } else {
