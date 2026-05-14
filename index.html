@@ -994,7 +994,7 @@ window.addEventListener("scroll", () => {
 async function loadLanguage(lang){
 
   const response =
-    await fetch(`/lang/${lang}.json`);
+    await fetch(lang/${lang}.json`);
 
   const t =
     await response.json();
