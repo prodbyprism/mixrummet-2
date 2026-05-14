@@ -925,25 +925,17 @@ const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
 
 hamburger.addEventListener("click", () => {
-
   hamburger.classList.toggle("active");
   menu.classList.toggle("active");
-
   document.body.classList.toggle("menu-open");
-
 });
 
 document.querySelectorAll(".menu a").forEach(link => {
-
   link.addEventListener("click", () => {
-
     hamburger.classList.remove("active");
     menu.classList.remove("active");
-
     document.body.classList.remove("menu-open");
-
   });
-
 });
 
 document.getElementById("year").textContent =
@@ -954,93 +946,92 @@ const revealElements =
 
 const revealObserver =
   new IntersectionObserver((entries) => {
-
     entries.forEach(entry => {
-
       if(entry.isIntersecting){
-
         entry.target.classList.add("active");
-
         revealObserver.unobserve(entry.target);
-
       }
-
     });
-
-}, {
-  threshold:0.15
-});
+  }, {
+    threshold:0.15
+  });
 
 revealElements.forEach(el =>
   revealObserver.observe(el));
 
 window.addEventListener("scroll", () => {
-
   if(window.scrollY > 120){
-
-    document.querySelector("header")
-      .classList.add("scrolled");
-
+    document.querySelector("header").classList.add("scrolled");
   } else {
-
-    document.querySelector("header")
-      .classList.remove("scrolled");
-
+    document.querySelector("header").classList.remove("scrolled");
   }
-
 });
 
-// Language Selector Logic
-async function loadLanguage(lang){
 
-  const response =
-    await fetch(lang/${lang}.json`);
+// ------------------------------
+// LANGUAGE SYSTEM (FIXED)
+// ------------------------------
 
-  const t =
-    await response.json();
-
-  const animated =
-    document.querySelectorAll(
-      "#title, .hero-sub, #first h2, #contact .section-title, .contact-wrapper p"
-    );
-
-  animated.forEach(el => {
-    el.classList.add("fade-out");
-  });
-
-  setTimeout(() => {
-
-    document.documentElement.lang = lang;
-
-    document.getElementById("title").textContent =
-      t.heroTitle;
-
-    document.querySelector(".hero-sub").textContent =
-      t.heroSub;
-
-    document.querySelector("#first h2").textContent =
-      t.aboutTitle;
-
-    document.querySelector("#contact .section-title").textContent =
-      t.contactTitle;
-
-    document.querySelector(".contact-wrapper p").textContent =
-      t.contactText;
-
-    animated.forEach(el => {
-
-      el.classList.remove("fade-out");
-
-      el.classList.add("fade-transition");
-      el.classList.add("fade-in");
-
-    });
-
-  }, 250);
-
+function getBasePath() {
+  return window.location.pathname.includes('/mixrummet-2/')
+    ? '/mixrummet-2/'
+    : '/';
 }
 
-async function setLanguage(lang){
+async function loadLanguage(lang) {
+  try {
+
+    const response =
+      await fetch(`${getBasePath()}lang/${lang}.json`);
+
+    if(!response.ok){
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const t = await response.json();
+
+    const animated =
+      document.querySelectorAll(
+        "#title, .hero-sub, #first h2, #contact .section-title, .contact-wrapper p"
+      );
+
+    animated.forEach(el => {
+      el.classList.add("fade-out");
+    });
+
+    setTimeout(() => {
+
+      document.documentElement.lang = lang;
+
+      document.getElementById("title").textContent =
+        t.heroTitle;
+
+      document.querySelector(".hero-sub").textContent =
+        t.heroSub;
+
+      document.querySelector("#first h2").textContent =
+        t.aboutTitle;
+
+      document.querySelector("#contact .section-title").textContent =
+        t.contactTitle;
+
+      document.querySelector(".contact-wrapper p").textContent =
+        t.contactText;
+
+      animated.forEach(el => {
+        el.classList.remove("fade-out");
+        el.classList.add("fade-transition");
+        el.classList.add("fade-in");
+      });
+
+    }, 250);
+
+  } catch (err) {
+    console.error("Language load failed:", err);
+  }
+}
+
+async function setLanguage(lang) {
 
   localStorage.setItem("language", lang);
 
@@ -1049,17 +1040,12 @@ async function setLanguage(lang){
   document.getElementById("languageOverlay")
     .classList.add("hidden");
 
-  if(history.pushState){
-
-    history.pushState(
-      {},
-      "",
-      `/${lang}/`
-    );
-
-  }
-
+  // GitHub Pages SAFE routing (no real folders)
+  history.pushState({}, "", `#${lang}`);
 }
+
+// Make onclick work globally (IMPORTANT FIX)
+window.setLanguage = setLanguage;
 
 window.addEventListener("load", async () => {
 
@@ -1067,7 +1053,6 @@ window.addEventListener("load", async () => {
     localStorage.getItem("language");
 
   if(!lang){
-
     const browserLang =
       navigator.language.toLowerCase();
 
@@ -1075,20 +1060,25 @@ window.addEventListener("load", async () => {
       browserLang.startsWith("sv")
         ? "sv"
         : "en";
-
   }
 
   await loadLanguage(lang);
 
-  if(window.location.pathname === "/"){
-    document.getElementById("languageOverlay")
-      .classList.remove("hidden");
+  const overlay = document.getElementById("languageOverlay");
+
+  // GitHub Pages safe path check
+  const isRoot =
+    window.location.pathname === "/" ||
+    window.location.pathname.includes("mixrummet-2");
+
+  if(isRoot && !localStorage.getItem("language")){
+    overlay.classList.remove("hidden");
   } else {
-    document.getElementById("languageOverlay")
-      .classList.add("hidden");
+    overlay.classList.add("hidden");
   }
 
 });
+
 </script>
 
 </body>
