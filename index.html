@@ -717,6 +717,29 @@
   opacity:1;
   transform:translateY(-50%) scale(1.1);
 }
+	  .lang-toggle{
+  position:absolute;
+  left:30px;
+  top:50%;
+  transform:translateY(-50%);
+
+  display:flex;
+  gap:10px;
+
+  cursor:pointer;
+  user-select:none;
+}
+
+.lang-toggle span{
+  font-size:20px;
+  opacity:0.4;
+  transition:0.2s ease;
+}
+
+.lang-toggle span.active{
+  opacity:1;
+  transform:scale(1.15);
+}
   </style>
 </head>
 
@@ -766,8 +789,9 @@
 </div>
 
 <header>
-<div class="lang-switch" id="langSwitch">
-  🌍
+<div class="lang-toggle" id="langToggle">
+  <span data-lang="sv">🇸🇪</span>
+  <span data-lang="en">🇬🇧</span>
 </div>
   <div class="logo">
 
@@ -939,13 +963,23 @@
 
 </footer>
 
-<script>
+	<script>
 // ------------------------------
 // ELEMENTS
 // ------------------------------
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
 const overlay = document.getElementById("languageOverlay");
+const langToggle = document.getElementById("langToggle");
+
+// ------------------------------
+// BASE PATH (GitHub Pages safe)
+// ------------------------------
+function getBasePath() {
+  return window.location.pathname.includes("/mixrummet-2/")
+    ? "/mixrummet-2/"
+    : "/";
+}
 
 // ------------------------------
 // MENU
@@ -973,25 +1007,23 @@ document.getElementById("year").textContent =
 // ------------------------------
 // REVEAL ANIMATION
 // ------------------------------
-const revealElements =
-  document.querySelectorAll(".reveal");
+const revealElements = document.querySelectorAll(".reveal");
 
-const revealObserver =
-  new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
 
 revealElements.forEach(el =>
   revealObserver.observe(el)
 );
 
 // ------------------------------
-// HEADER SCROLL EFFECT
+// HEADER SCROLL
 // ------------------------------
 window.addEventListener("scroll", () => {
   document.querySelector("header")
@@ -999,51 +1031,24 @@ window.addEventListener("scroll", () => {
 });
 
 // ------------------------------
-// BASE PATH (GitHub Pages safe)
-// ------------------------------
-function getBasePath() {
-  return window.location.pathname.includes("/mixrummet-2/")
-    ? "/mixrummet-2/"
-    : "/";
-}
-
-// ------------------------------
 // LANGUAGE LOADER
 // ------------------------------
 async function loadLanguage(lang) {
   try {
-    const response =
-      await fetch(`${getBasePath()}lang/${lang}.json`);
+    const res = await fetch(`${getBasePath()}lang/${lang}.json`);
+    if (!res.ok) throw new Error("Failed to load language");
 
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
+    const t = await res.json();
 
-    const t = await response.json();
+    document.documentElement.lang = lang;
 
-    const animated =
-      document.querySelectorAll(
-        "#title, .hero-sub, #first h2, #contact .section-title, .contact-wrapper p"
-      );
+    document.getElementById("title").textContent = t.heroTitle;
+    document.querySelector(".hero-sub").textContent = t.heroSub;
+    document.querySelector("#first h2").textContent = t.aboutTitle;
+    document.querySelector("#contact .section-title").textContent = t.contactTitle;
+    document.querySelector(".contact-wrapper p").textContent = t.contactText;
 
-    animated.forEach(el => el.classList.add("fade-out"));
-
-    setTimeout(() => {
-
-      document.documentElement.lang = lang;
-
-      document.getElementById("title").textContent = t.heroTitle;
-      document.querySelector(".hero-sub").textContent = t.heroSub;
-      document.querySelector("#first h2").textContent = t.aboutTitle;
-      document.querySelector("#contact .section-title").textContent = t.contactTitle;
-      document.querySelector(".contact-wrapper p").textContent = t.contactText;
-
-      animated.forEach(el => {
-        el.classList.remove("fade-out");
-        el.classList.add("fade-transition", "fade-in");
-      });
-
-    }, 250);
+    updateToggleUI(lang);
 
   } catch (err) {
     console.error("Language load failed:", err);
@@ -1059,43 +1064,56 @@ async function setLanguage(lang) {
   await loadLanguage(lang);
 
   overlay.classList.add("hidden");
-
-  // GitHub Pages safe routing (no real folders)
-  history.pushState({}, "", `#${lang}`);
 }
 
-// IMPORTANT: make onclick work in HTML
+// expose for HTML onclick safety (optional)
 window.setLanguage = setLanguage;
+
+// ------------------------------
+// UPDATE TOGGLE UI
+// ------------------------------
+function updateToggleUI(lang) {
+  if (!langToggle) return;
+
+  langToggle.querySelectorAll("span").forEach(el => {
+    el.classList.toggle("active", el.dataset.lang === lang);
+  });
+}
+
+// ------------------------------
+// TOGGLE CLICK HANDLER
+// ------------------------------
+if (langToggle) {
+  langToggle.addEventListener("click", (e) => {
+    const lang = e.target.dataset.lang;
+    if (!lang) return;
+    setLanguage(lang);
+  });
+}
 
 // ------------------------------
 // INIT
 // ------------------------------
 window.addEventListener("load", async () => {
 
-  const savedLang =
-    localStorage.getItem("language");
+  const savedLang = localStorage.getItem("language");
 
   const browserLang =
-    navigator.language.toLowerCase();
+    navigator.language.toLowerCase().startsWith("sv")
+      ? "sv"
+      : "en";
 
-  const defaultLang =
-    browserLang.startsWith("sv") ? "sv" : "en";
+  const lang = savedLang || browserLang;
 
-  // show overlay only first time
+  // show overlay ONLY first time
   if (!savedLang) {
     overlay.classList.remove("hidden");
   } else {
     overlay.classList.add("hidden");
   }
 
-  // load language safely
-  await loadLanguage(savedLang || defaultLang);
+  await loadLanguage(lang);
 
-});
-
-	document.getElementById("langSwitch").addEventListener("click", () => {
-  document.getElementById("languageOverlay")
-    .classList.remove("hidden");
 });
 </script>
 
