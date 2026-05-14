@@ -557,7 +557,6 @@
 <body>
 	
 <header>
-<div class="lang-toggle" id="langToggle">🇸🇪</div>
   <div class="logo">
 
     <img
@@ -734,14 +733,6 @@
 // ------------------------------
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
-const overlay = document.getElementById("languageOverlay");
-const langToggle = document.getElementById("langToggle");
-const flagInner = document.getElementById("flagInner");
-
-// ------------------------------
-// STATE
-// ------------------------------
-let currentLang = "sv";
 
 // ------------------------------
 // MENU
@@ -752,18 +743,26 @@ hamburger.addEventListener("click", () => {
   document.body.classList.toggle("menu-open");
 });
 
+document.querySelectorAll(".menu a").forEach(link => {
+  link.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    menu.classList.remove("active");
+    document.body.classList.remove("menu-open");
+  });
+});
+
 // ------------------------------
-// YEAR
+// FOOTER YEAR
 // ------------------------------
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
 // ------------------------------
-// REVEAL
+// REVEAL ANIMATION
 // ------------------------------
 const revealElements = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(entries => {
+const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("active");
@@ -775,92 +774,11 @@ const observer = new IntersectionObserver(entries => {
 revealElements.forEach(el => observer.observe(el));
 
 // ------------------------------
-// SCROLL HEADER
+// HEADER SCROLL EFFECT
 // ------------------------------
 window.addEventListener("scroll", () => {
   document.querySelector("header")
     .classList.toggle("scrolled", window.scrollY > 120);
-});
-
-// ------------------------------
-// LANGUAGE LOADER
-// ------------------------------
-async function loadLanguage(lang) {
-  const res = await fetch(`lang/${lang}.json`);
-  const t = await res.json();
-
-  currentLang = lang;
-  document.documentElement.lang = lang;
-
-  document.getElementById("title").textContent = t.heroTitle;
-  document.querySelector(".hero-sub").textContent = t.heroSub;
-  document.querySelector("#first h2").textContent = t.aboutTitle;
-  document.querySelector("#contact .section-title").textContent = t.contactTitle;
-  document.querySelector(".contact-wrapper p").textContent = t.contactText;
-
-  updateToggle();
-}
-
-// ------------------------------
-// TOGGLE UI (ANIMATED FLIP)
-// ------------------------------
-function updateToggle() {
-  if (!flagInner) return;
-
-  // flip animation
-  flagInner.classList.add("flag-flip");
-
-  setTimeout(() => {
-    flagInner.textContent = currentLang === "sv" ? "🇸🇪" : "🇬🇧";
-    flagInner.classList.remove("flag-flip");
-  }, 300);
-}
-
-// ------------------------------
-// SET LANGUAGE
-// ------------------------------
-async function setLanguage(lang) {
-  localStorage.setItem("language", lang);
-
-  await loadLanguage(lang);
-
-  overlay.classList.add("hidden");
-}
-
-// ------------------------------
-// TOGGLE
-// ------------------------------
-function toggleLanguage() {
-  const newLang = currentLang === "sv" ? "en" : "sv";
-  setLanguage(newLang);
-}
-
-langToggle.addEventListener("click", toggleLanguage);
-
-// ------------------------------
-// INIT (NO FLICKER VERSION)
-// ------------------------------
-window.addEventListener("load", async () => {
-
-  const savedLang = localStorage.getItem("language");
-
-  const browserLang =
-    navigator.language.toLowerCase().startsWith("sv")
-      ? "sv"
-      : "en";
-
-  const lang = savedLang || browserLang;
-
-  currentLang = lang;
-
-  // ONLY show overlay if first time
-  if (!savedLang) {
-    overlay.classList.remove("hidden");
-  } else {
-    overlay.classList.add("hidden");
-  }
-
-  await loadLanguage(lang);
 });
 </script>
 
