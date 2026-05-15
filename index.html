@@ -606,6 +606,101 @@
   }
 
 }
+
+	  /* =========================
+   PRICING
+========================= */
+
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:30px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.pricing-card{
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.02)
+  );
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  border-radius:28px;
+
+  padding:40px;
+
+  backdrop-filter:blur(14px);
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.pricing-card:hover{
+  transform:translateY(-8px);
+
+  border-color:rgba(255,255,255,0.18);
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03)
+  );
+}
+
+.pricing-top{
+  margin-bottom:28px;
+}
+
+.pricing-label{
+  display:inline-block;
+
+  font-size:0.9rem;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+  opacity:0.55;
+
+  margin-bottom:14px;
+}
+
+.pricing-price{
+  font-family:'Anton', sans-serif;
+
+  font-size:clamp(2rem, 5vw, 3.5rem);
+
+  font-weight:400;
+
+  line-height:1;
+}
+
+.pricing-text{
+  opacity:0.78;
+
+  line-height:1.9;
+
+  margin-bottom:18px;
+
+  font-size:1rem;
+}
+
+@media(max-width:900px){
+
+  .pricing-grid{
+    grid-template-columns:1fr;
+  }
+
+  .pricing-card{
+    padding:32px 24px;
+  }
+
+}
   </style>
 </head>
 
@@ -727,6 +822,67 @@
     <div class="playlist-embed">
 
 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6KDfy9I6hnvKwmGYIQUN0Q?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+    </div>
+
+  </div>
+
+</section>
+
+	<section class="section reveal" id="pricing">
+
+  <h2 class="section-title">
+    Tjänster & Priser
+  </h2>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+
+      <div class="pricing-top">
+        <span class="pricing-label">
+          Inspelning & Produktion
+        </span>
+
+        <h3 class="pricing-price">
+          Från 350 kr
+        </h3>
+      </div>
+
+      <p class="pricing-text">
+        Med 32 kanaler högkvalitativ inspelning erbjuder vi allt från
+        sånginspelning till liveinspelning av hela band.
+      </p>
+
+      <p class="pricing-text">
+        Vi arbetar med ett brett utbud av mikrofoner, preamps och analog
+        outboardutrustning för att säkerställa högsta möjliga kvalitet redan
+        vid inspelningstillfället.
+      </p>
+
+    </div>
+
+    <div class="pricing-card">
+
+      <div class="pricing-top">
+        <span class="pricing-label">
+          Mixning
+        </span>
+
+        <h3 class="pricing-price">
+          Från 2 375 kr
+        </h3>
+      </div>
+
+      <p class="pricing-text">
+        Vid mixning kombinerar vi analog och digital utrustning för att uppnå
+        maximal kvalitet och musikalitet i varje produktion.
+      </p>
+
+      <p class="pricing-text">
+        Studion använder utrustning från bland annat Neve, Antelope,
+        TL Audio och Tascam tillsammans med trevägsmonitorering från Neumann.
+      </p>
 
     </div>
 
