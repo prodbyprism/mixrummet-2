@@ -379,6 +379,54 @@
       transform:translateY(0);
     }
 
+    .gear-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:2rem;
+      align-items:start;
+      margin-top:2rem;
+    }
+
+    .gear-card{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      overflow:hidden;
+      padding:0;
+      transition:transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .gear-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(255,255,255,0.25);
+    }
+
+    .gear-image{
+      width:100%;
+      min-height:220px;
+      overflow:hidden;
+    }
+
+    .gear-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .gear-card h3{
+      font-family:'Anton', sans-serif;
+      font-size:1.35rem;
+      margin:1.25rem 1.5rem 0.75rem;
+      color:white;
+    }
+
+    .gear-card p{
+      margin:0 1.5rem 1.5rem;
+      color:rgba(255,255,255,0.8);
+      line-height:1.7;
+    }
+
     .footer{
       padding:90px 10% 40px;
       border-top:1px solid rgba(255,255,255,0.08);
@@ -461,7 +509,11 @@
       }
 
       .section#pricing{
-        padding-top:80px;
+        padding-top:50px;
+      }
+
+      .gear-grid{
+        grid-template-columns:1fr;
       }
 
       .hero-sub{
@@ -863,6 +915,58 @@
         TL Audio och Tascam tillsammans med trevägsmonitorering från Neumann.
       </p>
 
+    </div>
+
+  </div>
+
+</section>
+
+          <section class="section gear-section reveal" id="gear">
+
+  <h2 class="section-title">
+    Studio A Utrustning
+  </h2>
+
+  <div class="gear-grid">
+
+    <div class="gear-card reveal">
+      <div class="gear-image">
+        <img src="assets/images/gear/neumann-kh310a.jpg" alt="Neumann KH310A" />
+      </div>
+      <h3>Neumann KH310A</h3>
+      <p>Studions huvudmonitorer för detaljrik och neutral referens i mixen.</p>
+    </div>
+
+    <div class="gear-card reveal">
+      <div class="gear-image">
+        <img src="assets/images/gear/audio-technica-ath-m50x.jpg" alt="Audio Technica ATH M50X" />
+      </div>
+      <h3>Audio Technica ATH M50X</h3>
+      <p>Populära studiophones för noggrann kontroll och komfort under långa sessioner.</p>
+    </div>
+
+    <div class="gear-card reveal">
+      <div class="gear-image">
+        <img src="assets/images/gear/audio-technica-ath-m50.jpg" alt="Audio Technica ATH M50" />
+      </div>
+      <h3>Audio Technica ATH M50</h3>
+      <p>Klassiska lurar med klar ljudåtergivning och robust konstruktion.</p>
+    </div>
+
+    <div class="gear-card reveal">
+      <div class="gear-image">
+        <img src="assets/images/gear/beyerdynamic-dt770-pro.jpg" alt="Beyerdynamic DT770 Pro" />
+      </div>
+      <h3>Beyerdynamic DT770 Pro</h3>
+      <p>Stängda hörlurar med bra baskontroll och isolering vid inspelning.</p>
+    </div>
+
+    <div class="gear-card reveal">
+      <div class="gear-image">
+        <img src="assets/images/gear/hifiman-sundara.jpg" alt="HiFiMan Sundara" />
+      </div>
+      <h3>HiFiMan Sundara</h3>
+      <p>Planar-magnetiska hörlurar för otrolig detalj och hög upplösning.</p>
     </div>
 
   </div>
