@@ -1054,14 +1054,6 @@ html.lenis body {
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
 
-	function disableLenis() {
-  lenis.stop();
-}
-
-function enableLenis() {
-  lenis.start();
-}
-
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     menu.classList.toggle('active');
@@ -1140,7 +1132,6 @@ function enableLenis() {
 
   gearButton.addEventListener('click', () => {
     const existingModal = document.getElementById('gearModal');
-	  disableLenis();
     if (existingModal) {
       existingModal.remove();
       return;
@@ -1161,6 +1152,7 @@ function enableLenis() {
       z-index: 2000;
       backdrop-filter: blur(4px);
       animation: fadeIn 0.3s ease;
+	  overflow: hidden;
     `;
 
     const modalContent = document.createElement('div');
@@ -1188,8 +1180,9 @@ modalContent.style.cssText = `
   padding: 40px;
   max-width: 800px;
   max-height: 80vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   animation: slideUp 0.3s ease;
 `;
 
@@ -1229,7 +1222,6 @@ color: white !important;
 
     closeButton.addEventListener('click', () => {
       modal.remove();
-	  enableLenis();
     });
 
     modalContent.appendChild(closeButton);
@@ -1253,7 +1245,6 @@ color: white !important;
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.remove();
-		enableLenis();
       }
     });
   });
