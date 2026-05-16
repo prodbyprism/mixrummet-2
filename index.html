@@ -1098,6 +1098,7 @@ html.lenis body {
 
   // Gear button functionality
   const gearButton = document.getElementById('gearButton');
+
   const gearData = {
     "Inspelning och mixning": [
       "Dator: MacBook Pro M1 Pro",
@@ -1130,123 +1131,100 @@ html.lenis body {
     ]
   };
 
+  function lockScroll() {
+    if (window.lenis) lenis.stop();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function unlockScroll() {
+    if (window.lenis) lenis.start();
+    document.body.style.overflow = '';
+  }
+
   gearButton.addEventListener('click', () => {
     const existingModal = document.getElementById('gearModal');
+
     if (existingModal) {
       existingModal.remove();
+      unlockScroll();
       return;
     }
+
+    lockScroll();
 
     const modal = document.createElement('div');
     modal.id = 'gearModal';
     modal.style.cssText = `
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      inset: 0;
+      background: rgba(0,0,0,0.85);
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      backdrop-filter: blur(4px);
-      animation: fadeIn 0.3s ease;
-	  overflow: hidden;
+      padding: 20px;
     `;
 
     const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+      position: relative;
+      background: #050505;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 40px;
+      width: min(800px, 100%);
+      max-height: 80vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    `;
 
-    let content = '<h2 style="font-family: Anton, sans-serif; font-size: 2rem; margin-bottom: 30px; color: white; letter-spacing: 1px;">Studio A Utrustning</h2>';
+    let content = `<h2 style="font-family: Anton; color:white; margin-bottom:20px;">
+      Studio A Utrustning
+    </h2>`;
 
     for (const [category, items] of Object.entries(gearData)) {
-      content += `
-        <div style="margin-bottom: 25px;">
-          <h3 style="font-family: Anton, sans-serif; font-size: 1.2rem; color: white; margin-bottom: 12px; letter-spacing: 0.5px;">${category}</h3>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-      `;
+      content += `<h3 style="color:white;margin-top:20px">${category}</h3><ul style="list-style:none;padding:0;">`;
+
       items.forEach(item => {
-        content += `<li style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 8px;">• ${item}</li>`;
+        content += `<li style="color:rgba(255,255,255,0.8);margin:6px 0;">• ${item}</li>`;
       });
-      content += '</ul></div>';
+
+      content += `</ul>`;
     }
 
     modalContent.innerHTML = content;
-modalContent.style.cssText = `
-  position: relative;
-  background: #050505;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 40px;
-  max-width: 800px;
-  max-height: 80vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  animation: slideUp 0.3s ease;
-`;
 
     const closeButton = document.createElement('button');
     closeButton.innerHTML = '✕';
+
     closeButton.style.cssText = `
-position: absolute;
-top: 20px;
-right: 20px;
-border-radius: 50%;
-background: rgba(255, 255, 255, 0.1);
-border: 1px solid rgba(255, 255, 255, 0.2);
-font-size: 20px;
-line-height: 1;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-backdrop-filter: blur(10px);
-width: 44px !important;
-height: 44px !important;
-min-width: 44px !important;
-max-width: 44px !important;
-padding: 0px 0px 0px 3px !important;
-color: white !important;
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,0.2);
+      background:rgba(255,255,255,0.1);
+      color:white;
+      cursor:pointer;
     `;
 
-    closeButton.addEventListener('mouseover', () => {
-      closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
-      closeButton.style.borderColor = 'rgba(255, 255, 255, 0.4)';
-    });
-
-    closeButton.addEventListener('mouseout', () => {
-      closeButton.style.background = 'rgba(255, 255, 255, 0.1)';
-      closeButton.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-    });
-
-    closeButton.addEventListener('click', () => {
+    function closeModal() {
       modal.remove();
+      unlockScroll();
+    }
+
+    closeButton.onclick = closeModal;
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
     });
 
     modalContent.appendChild(closeButton);
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
-
-    // Add animation styles
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.remove();
-      }
-    });
   });
 </script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
