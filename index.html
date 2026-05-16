@@ -810,7 +810,7 @@
 <div class="menu" id="menu">
 
   <a href="#hero">Hem</a>
-  <a href="#about">Om Studion</a>
+  <a href="#spotlight">Om Studion</a>
   <a href="#contact">Kontakt</a>
 
 </div>
@@ -1129,16 +1129,6 @@
     `;
 
     const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-      background: #050505;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 800px;
-      max-height: 80vh;
-      overflow-y: auto;
-      animation: slideUp 0.3s ease;
-    `;
 
     let content = '<h2 style="font-family: Anton, sans-serif; font-size: 2rem; margin-bottom: 30px; color: white; letter-spacing: 1px;">Studio A Utrustning</h2>';
 
@@ -1230,6 +1220,22 @@ color: white !important;
     });
   });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
 
+<script>
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smooth: true,
+  smoothTouch: false
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+</script>
 </body>
 </html>
