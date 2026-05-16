@@ -111,6 +111,19 @@
         1px solid rgba(255,255,255,0.06);
     }
 
+	  html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
     .logo{
       display:flex;
       align-items:center;
@@ -1220,10 +1233,9 @@ color: white !important;
     });
   });
 </script>
-<script type="module">
-import Lenis from "https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.mjs";
-
-const lenis = new Lenis({
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+	<script>
+		const lenis = new Lenis({
   duration: 1.0,
   smoothWheel: true,
   smoothTouch: false
@@ -1235,6 +1247,6 @@ function raf(time) {
 }
 
 requestAnimationFrame(raf);
-</script>
+	</script>
 </body>
 </html>
