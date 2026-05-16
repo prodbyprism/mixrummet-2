@@ -810,7 +810,7 @@
 <div class="menu" id="menu">
 
   <a href="#hero">Hem</a>
-  <a href="#spotlight">Om Studion</a>
+  <a href="#first">Om Studion</a>
   <a href="#contact">Kontakt</a>
 
 </div>
@@ -1220,13 +1220,12 @@ color: white !important;
     });
   });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+<script type="module">
+import Lenis from "https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.mjs";
 
-<script>
 const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
+  duration: 1.0,
+  smoothWheel: true,
   smoothTouch: false
 });
 
