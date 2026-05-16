@@ -748,6 +748,32 @@
   font-size:0.95rem;
 }
 
+.pricing-button-container{
+  text-align:center;
+  margin-top:50px;
+}
+
+.gear-button{
+  display:inline-block;
+  padding:12px 32px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:8px;
+  color:white;
+  text-decoration:none;
+  font-size:1rem;
+  font-family:'Space Grotesk', sans-serif;
+  letter-spacing:0.5px;
+  transition:all 0.3s ease;
+  cursor:pointer;
+}
+
+.gear-button:hover{
+  background:rgba(255,255,255,0.15);
+  border-color:rgba(255,255,255,0.4);
+  transform:translateY(-2px);
+}
+
 @media(max-width:900px){
 
   .pricing-grid{
@@ -850,8 +876,8 @@
 					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
 						<div class="content">
 							<h2>Om Studion</h2>
-              <p>Mixrummets målsättning är att erbjuda ett “kreativt vardagsrum”, där du kan känna dig som hemma, vara dig själv och fokusera på det du brinner för – musiken. Vi jobbar aktivt för att hålla högsta möjliga kvalitet i varje led till ett pris som passar alla. Därför jobbar vi agilt och flexibelt och ofta i samarbete med externa parter. Allt för att kunna erbjuda den bästa lösningen för varje individuellt projekt.</p>
-              <p>För att kvalitetssäkra vårt tjänsteutbud använder vi oss av noga utvald utrustning och kompetens. Inspelning, produktion och mixning görs in-house, medan mastering och video hanteras av externa specialister. Vi har också löpande samarbeten med sessionmusiker.</p>
+              <p>Mixrummets målsättning är att erbjuda ett "kreativt vardagsrum", där du kan känna dig som hemma, vara dig själv och fokusera på det du brinner för – musiken. Vi jobbar aktivt för att skapa en inkluderande miljö oavsett könsidentitet, sexuell läggning, ålder, etnicitet, neurodiversitet eller socioekonomisk status.</p>
+              <p>För att kvalitetssäkra vårt tjänsteutbud använder vi oss av noga utvald utrustning och kompetens. Inspelning, produktion och mixning görs in-house, medan mastering och video hanteras av våra samarbetspartners.</p>
 				<!--			<ul class="actions stacked">
 					<li><a href="#" class="button">Learn More</a></li>
 							</ul> -->	
@@ -920,65 +946,8 @@
 
   </div>
 
-</section>
-
-          <section class="section gear-section reveal" id="gear">
-
-  <h2 class="section-title">
-    Studio A Utrustning
-  </h2>
-
-  <div class="gear-grid">
-
-    <div class="gear-card reveal">
-      <h3>Inspelning och mixning</h3>
-      <ul>
-        <li>Dator: MacBook Pro M1 Pro</li>
-        <li>AD/DA: Antelope Orion 32</li>
-        <li>Mixerbord: Tascam M-520, TL Audio M3 Tubetracker, Soundcraft Series 10</li>
-        <li>Outboard: DBX, FMR Audio, Klark Teknik, Lake People, Universal Audio, Warm Audio</li>
-        <li>DAWS: Logic Pro, Reason 12 + rack extensions</li>
-        <li>Plug-ins: Eiosis, Equator, FabFilter, Kilohearts, LiquidSonics, RX10, Overloud, Ozone 9, Slate Digital, Soundtoys, Waves, m.fl.</li>
-      </ul>
-    </div>
-
-    <div class="gear-card reveal">
-      <h3>Mikrofoner</h3>
-      <ul>
-        <li>Kondensator: 3dio FreeSpace x2, Aston Elements x2, Austrian Audio OC18 x2, Line Audio CM4 x2, m.fl.</li>
-        <li>Dynamiska: Sennheiser MD421, Shure Beta 52A, Shure Beta58A, Shure SM57, Shure SM58, submikrofon, diverse högtalarmikrofoner, m.fl.</li>
-        <li>Band: Golden Age R1 MKII, Sontronics Sigma II</li>
-      </ul>
-    </div>
-
-    <div class="gear-card reveal">
-      <h3>Instrument</h3>
-      <ul>
-        <li>Akustiska gitarrer: Eastman E1 D, Cort SFX E NS, K Yairi CE1, Hans Perssons Instrument BS1</li>
-        <li>Basar: Ibanez GSR205 (5-strängad), No Name (4-strängad)</li>
-        <li>Elgitarrer: Badstroke Wendigo 7, Fender Jaguar, Gretsch Electromatic, Squier Telecaster</li>
-        <li>Pianon: Östlind & Almquist (akustiskt), Casio (digitalt)</li>
-        <li>Syntar: Korg Microkorg, Roland System-1, Seaboard Rise 25, Sequential Prophet 6</li>
-        <li>Trummor: Mapex M Series, Paiste crash, ride och hihat, diverse perkussion</li>
-      </ul>
-    </div>
-
-    <div class="gear-card reveal">
-      <h3>Förstärkare och pedaler</h3>
-      <ul>
-        <li>Förstärkare: Harley Benton tube 15 x2, Kustom Solo 10, Orange Crush PiX CR50BXT, Vox AC15 C1</li>
-        <li>Pedaler: Digitech Hardwire SC-2, EarthQuaker Data Corrupter, EarthQuaker Pyramids, Ernie Ball EB6166 x2, Maxon Fuzz Elements Water, TC Electronics Flashback II, TC Electronic Hall of Fame II, MXR M108S, Nobels ODR-B, m.fl.</li>
-      </ul>
-    </div>
-
-    <div class="gear-card reveal">
-      <h3>Lyssning</h3>
-      <ul>
-        <li>Högtalare: Neumann KH310, Doome Speakers</li>
-        <li>Hörlurar: Audio Technica ATH M50X, Audio Technica ATH M50, Beyerdynamic DT770 Pro, HiFiMan Sundara</li>
-      </ul>
-    </div>
-
+  <div class="pricing-button-container">
+    <button class="gear-button" id="gearButton">Visa Studio A Utrustning</button>
   </div>
 
 </section>
@@ -1000,32 +969,25 @@
     </div>
 
     <div class="playlist-embed">
-
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6KDfy9I6hnvKwmGYIQUN0Q?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
+      <iframe src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID?utm_source=generator" width="100%" height="520" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
   </div>
 
 </section>
 
-<section class="section" id="contact">
+<section class="section demo-contact" id="contact">
 
-  <h2 class="section-title reveal">
-    Kontakt
-  </h2>
+  <div class="contact-wrapper">
 
-<div class="contact-wrapper reveal">
+    <h2 class="section-title">Kontakt</h2>
 
     <p>
-      För bokningar och frågor kontakta:
+      Intresserad av att boka studion eller ha frågor? Vi hjälper gärna!
     </p>
 
-    <a href="mailto:kontakt@mixrummet.com"
-      class="demo-email">
-
-      kontakt@mixrummet.com
-
+    <a href="mailto:info@mixrummet.com" class="demo-email">
+      info@mixrummet.com
     </a>
 
   </div>
@@ -1039,103 +1001,221 @@
   <div class="footer-inner">
 
     <div>
-
-      <div class="footer-brand">
-        Mixrummet
-      </div>
-
-      <div class="footer-sub">
-        Inspelningsstudio i Uppsala
-      </div>
-
+      <div class="footer-brand">MIXRUMMET</div>
+      <div class="footer-sub">Inspelningsstudio i Uppsala</div>
     </div>
 
     <div class="footer-links">
-
       <a href="#hero">Hem</a>
-      <a href="#about">Om Studion</a>
-      <a href="#contact">Kontakt</a>
-
+      <a href="#first">Om Studion</a>
+      <a href="#pricing">Tjänster & Priser</a>
     </div>
 
     <div class="footer-right">
-
-      <a href="#">
-        Instagram
-      </a>
-
-      <a href="#">
-        TikTok
-      </a>
-
-      <a href="#">
-        YouTube
-      </a>
-
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+      <a href="#">TikTok</a>
     </div>
 
   </div>
 
   <div class="footer-bottom">
-    © <span id="year"></span> Mixrummet.
-    Alla rättigheter förbehållna.
+    © 2024 Mixrummet. All rights reserved.
   </div>
 
 </footer>
 
 <script>
-// ------------------------------
-// ELEMENTS
-// ------------------------------
-const hamburger = document.getElementById("hamburger");
-const menu = document.getElementById("menu");
+  // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
 
-// ------------------------------
-// MENU
-// ------------------------------
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  menu.classList.toggle("active");
-  document.body.classList.toggle("menu-open");
-});
-
-document.querySelectorAll(".menu a").forEach(link => {
-  link.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    menu.classList.remove("active");
-    document.body.classList.remove("menu-open");
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    menu.classList.toggle('active');
   });
-});
 
-// ------------------------------
-// FOOTER YEAR
-// ------------------------------
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+  // Close menu when link is clicked
+  const menuLinks = menu.querySelectorAll('a');
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      menu.classList.remove('active');
+    });
+  });
 
-// ------------------------------
-// REVEAL ANIMATION
-// ------------------------------
-const revealElements = document.querySelectorAll(".reveal");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("active");
-      observer.unobserve(entry.target);
+  // Header scroll effect
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
     }
   });
-}, { threshold: 0.15 });
 
-revealElements.forEach(el => observer.observe(el));
+  // Reveal animation on scroll
+  const reveals = document.querySelectorAll('.reveal');
 
-// ------------------------------
-// HEADER SCROLL EFFECT
-// ------------------------------
-window.addEventListener("scroll", () => {
-  document.querySelector("header")
-    .classList.toggle("scrolled", window.scrollY > 120);
-});
+  function checkReveal() {
+    reveals.forEach(element => {
+      const windowHeight = window.innerHeight;
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 150;
+
+      if (elementTop < windowHeight - elementVisible) {
+        element.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkReveal);
+  checkReveal();
+
+  // Gear button functionality
+  const gearButton = document.getElementById('gearButton');
+  const gearData = {
+    "Inspelning och mixning": [
+      "Dator: MacBook Pro M1 Pro",
+      "AD/DA: Antelope Orion 32",
+      "Mixerbord: Tascam M-520, TL Audio M3 Tubetracker, Soundcraft Series 10",
+      "Outboard: DBX, FMR Audio, Klark Teknik, Lake People, Universal Audio, Warm Audio",
+      "DAWS: Logic Pro, Reason 12 + rack extensions",
+      "Plug-ins: Eiosis, Equator, FabFilter, Kilohearts, LiquidSonics, RX10, Overloud, Ozone 9, Slate Digital, Soundtoys, Waves, m.fl."
+    ],
+    "Mikrofoner": [
+      "Kondensator: 3dio FreeSpace x2, Aston Elements x2, Austrian Audio OC18 x2, Line Audio CM4 x2, m.fl.",
+      "Dynamiska: Sennheiser MD421, Shure Beta 52A, Shure Beta58A, Shure SM57, Shure SM58, submikrofon, diverse högtalarmikrofoner, m.fl.",
+      "Band: Golden Age R1 MKII, Sontronics Sigma II"
+    ],
+    "Instrument": [
+      "Akustiska gitarrer: Eastman E1 D, Cort SFX E NS, K Yairi CE1, Hans Perssons Instrument BS1",
+      "Basar: Ibanez GSR205 (5-strängad), No Name (4-strängad)",
+      "Elgitarrer: Badstroke Wendigo 7, Fender Jaguar, Gretsch Electromatic, Squier Telecaster",
+      "Pianon: Östlind & Almquist (akustiskt), Casio (digitalt)",
+      "Syntar: Korg Microkorg, Roland System-1, Seaboard Rise 25, Sequential Prophet 6",
+      "Trummor: Mapex M Series, Paiste crash, ride och hihat, diverse perkussion"
+    ],
+    "Förstärkare och pedaler": [
+      "Förstärkare: Harley Benton tube 15 x2, Kustom Solo 10, Orange Crush PiX CR50BXT, Vox AC15 C1",
+      "Pedaler: Digitech Hardwire SC-2, EarthQuaker Data Corrupter, EarthQuaker Pyramids, Ernie Ball EB6166 x2, Maxon Fuzz Elements Water, TC Electronics Flashback II, TC Electronic Hall of Fame"
+    ],
+    "Lyssning": [
+      "Högtalare: Neumann KH310, Doome Speakers",
+      "Hörlurar: Audio Technica ATH M50X, Audio Technica ATH M50, Beyerdynamic DT770 Pro, HiFiMan Sundara"
+    ]
+  };
+
+  gearButton.addEventListener('click', () => {
+    const existingModal = document.getElementById('gearModal');
+    if (existingModal) {
+      existingModal.remove();
+      return;
+    }
+
+    const modal = document.createElement('div');
+    modal.id = 'gearModal';
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.3s ease;
+    `;
+
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+      background: #050505;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease;
+    `;
+
+    let content = '<h2 style="font-family: Anton, sans-serif; font-size: 2rem; margin-bottom: 30px; color: white;">Studio A Utrustning</h2>';
+
+    for (const [category, items] of Object.entries(gearData)) {
+      content += `
+        <div style="margin-bottom: 25px;">
+          <h3 style="font-family: Anton, sans-serif; font-size: 1.2rem; color: white; margin-bottom: 12px; letter-spacing: 0.5px;">${category}</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+      `;
+      items.forEach(item => {
+        content += `<li style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 8px;">• ${item}</li>`;
+      });
+      content += '</ul></div>';
+    }
+
+    modalContent.innerHTML = content;
+
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '✕';
+    closeButton.style.cssText = `
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    `;
+
+    closeButton.addEventListener('mouseover', () => {
+      closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
+      closeButton.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+    });
+
+    closeButton.addEventListener('mouseout', () => {
+      closeButton.style.background = 'rgba(255, 255, 255, 0.1)';
+      closeButton.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+    });
+
+    closeButton.addEventListener('click', () => {
+      modal.remove();
+    });
+
+    modalContent.appendChild(closeButton);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    // Add animation styles
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    });
+  });
 </script>
 
 </body>
