@@ -1053,6 +1053,14 @@ html.lenis body {
   const hamburger = document.getElementById('hamburger');
   const menu = document.getElementById('menu');
 
+	function disableLenis() {
+  lenis.stop();
+}
+
+function enableLenis() {
+  lenis.start();
+}
+
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     menu.classList.toggle('active');
@@ -1131,6 +1139,7 @@ html.lenis body {
 
   gearButton.addEventListener('click', () => {
     const existingModal = document.getElementById('gearModal');
+	  disableLenis();
     if (existingModal) {
       existingModal.remove();
       return;
@@ -1218,6 +1227,7 @@ color: white !important;
 
     closeButton.addEventListener('click', () => {
       modal.remove();
+	  enableLenis();
     });
 
     modalContent.appendChild(closeButton);
@@ -1241,6 +1251,7 @@ color: white !important;
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.remove();
+		enableLenis();
       }
     });
   });
