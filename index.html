@@ -1180,7 +1180,7 @@ function enableLenis() {
     }
 
     modalContent.innerHTML = content;
-	  modalContent.style.cssText = `
+modalContent.style.cssText = `
   position: relative;
   background: #050505;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1189,6 +1189,7 @@ function enableLenis() {
   max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
+  overflow-x: hidden;
   animation: slideUp 0.3s ease;
 `;
 
