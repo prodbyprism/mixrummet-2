@@ -1240,16 +1240,16 @@ html.lenis body {
   <label for="email">Din mailadress <span>(krävs)</span></label>
   <input type="email" id="email" name="email" required>
 
-  <fieldset>
-    <legend>Tjänster <span>(krävs)</span></legend>
-    <p>Vilken eller vilka tjänster är du intresserad av?</p>
-    
-    <label><input type="checkbox" name="services1" value="Inspelning"> Inspelning</label>
-    <label><input type="checkbox" name="services2" value="Produktion"> Produktion</label>
-    <label><input type="checkbox" name="services3" value="Mixning"> Mixning</label>
-    <label><input type="checkbox" name="services4" value="Mastering"> Mastering</label>
-    <label><input type="checkbox" name="services5" value="Annat"> Annat</label>
-  </fieldset>
+<fieldset>
+  <legend>Tjänster <span>(krävs)</span></legend>
+  <p>Vilken eller vilka tjänster är du intresserad av?</p>
+
+  <label><input type="checkbox" name="services[]" value="Inspelning"> Inspelning</label>
+  <label><input type="checkbox" name="services[]" value="Produktion"> Produktion</label>
+  <label><input type="checkbox" name="services[]" value="Mixning"> Mixning</label>
+  <label><input type="checkbox" name="services[]" value="Mastering"> Mastering</label>
+  <label><input type="checkbox" name="services[]" value="Annat"> Annat</label>
+</fieldset>
 
   <fieldset>
     <legend>Frågor</legend>
