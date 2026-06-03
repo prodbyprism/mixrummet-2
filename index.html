@@ -1009,70 +1009,63 @@ html.lenis body {
     display: flex;
     justify-content: space-around;
 }
-	  /* =======================
-   MIX COMPARE SECTION
-======================= */
-
-.mix-compare {
-  background: #050505;
-  padding: 120px 10%;
-  position: relative;
-}
-
-.compare-sub {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 50px auto;
-  opacity: 0.75;
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-.compare-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  max-width: 1000px;
+/* WRAPPER */
+.compare-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
+/* EACH EXAMPLE BLOCK */
+.example-block {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* TITLE ABOVE EACH EXAMPLE */
+.example-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* GRID INSIDE EACH EXAMPLE */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* CARDS */
 .compare-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
-  padding: 28px;
+  padding: 24px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
   backdrop-filter: blur(10px);
 }
 
-.compare-card h3 {
-	color: white !important;
-}
-
 .compare-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.06);
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.25);
 }
 
-.compare-card h3 {
-  font-family: 'Anton', sans-serif;
-  letter-spacing: 1px;
-  margin-bottom: 18px;
-  font-size: 1.3rem;
+.compare-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  margin-bottom: 14px;
+  opacity: 0.8;
 }
 
 .compare-card audio {
   width: 100%;
-  margin-bottom: 15px;
-  filter: invert(1);
-}
-
-.compare-card p {
-  opacity: 0.7;
-  font-size: 0.95rem;
-  line-height: 1.6;
 }
 
 /* MOBILE */
@@ -1081,8 +1074,8 @@ html.lenis body {
     grid-template-columns: 1fr;
   }
 
-  .mix-compare {
-    padding: 90px 8%;
+  .example-title {
+    font-size: 1.6rem;
   }
 }
   </style>
@@ -1279,31 +1272,88 @@ html.lenis body {
 
 </section>
 
-	<!-- MIX COMPARE SECTION -->
+<!-- MIX COMPARE MULTI SECTION -->
 <section class="section mix-compare reveal" id="compare">
+
   <h2 class="section-title">Före & Efter Mixning</h2>
 
   <p class="compare-sub">
     Lyssna på skillnaden mellan rå inspelning och färdig mix från Mixrummet.
   </p>
 
-  <div class="compare-grid">
+  <div class="compare-wrapper">
 
-    <div class="compare-card">
-      <h3>Omixad version</h3>
-      <audio controls>
-        <source src="assets/audio/song-unmixed.mp3" type="audio/mpeg">
-      </audio>
+    <!-- EXAMPLE 1 -->
+    <div class="example-block">
+      <h3 class="example-title">Example 1</h3>
+
+      <div class="compare-grid">
+
+        <div class="compare-card">
+          <h4>Utan mix</h4>
+          <audio controls>
+            <source src="assets/audio/example1-unmixed.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <div class="compare-card">
+          <h4>Mixad version</h4>
+          <audio controls>
+            <source src="assets/audio/example1-mixed.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+      </div>
     </div>
 
-    <div class="compare-card">
-      <h3>Mixad version</h3>
-      <audio controls>
-        <source src="assets/audio/song-mixed.mp3" type="audio/mpeg">
-      </audio>
+    <!-- EXAMPLE 2 -->
+    <div class="example-block">
+      <h3 class="example-title">Example 2</h3>
+
+      <div class="compare-grid">
+
+        <div class="compare-card">
+          <h4>Utan mix</h4>
+          <audio controls>
+            <source src="assets/audio/example2-unmixed.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <div class="compare-card">
+          <h4>Mixad version</h4>
+          <audio controls>
+            <source src="assets/audio/example2-mixed.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- EXAMPLE 3 -->
+    <div class="example-block">
+      <h3 class="example-title">Example 3</h3>
+
+      <div class="compare-grid">
+
+        <div class="compare-card">
+          <h4>Utan mix</h4>
+          <audio controls>
+            <source src="assets/audio/example3-unmixed.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <div class="compare-card">
+          <h4>Mixad version</h4>
+          <audio controls>
+            <source src="assets/audio/example3-mixed.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+      </div>
     </div>
 
   </div>
+
 </section>
 
 <section class="section demo-contact" id="contact">
